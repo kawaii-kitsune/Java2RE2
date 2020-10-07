@@ -15,6 +15,7 @@ import java.lang.*;
 public final class CardsDealer extends Human implements HeartsDealer {
     int[] a=new int[10];
     int c1,c2,i=0,j=0,x;
+    int cnt2=0;
     CardsPlayer p1,p2;
     deck d;
     
@@ -38,7 +39,6 @@ public final class CardsDealer extends Human implements HeartsDealer {
         this.Id="Dealer";
         this.d=d;
         introduceSelf();
-        //showDeck();
         this.p1=p1;
         this.p2=p2;
         dealToPlayers(this.p1,this.p2);
@@ -51,7 +51,6 @@ public final class CardsDealer extends Human implements HeartsDealer {
         this.Id="Dealer";
         this.d=d;
         introduceSelf();
-        //showDeck();
         this.p1=p1;
         this.p2=p2;
         dealToPlayers(this.p1,this.p2);
@@ -76,7 +75,7 @@ public final class CardsDealer extends Human implements HeartsDealer {
 
     @Override
     public card dealRandomCard() {
-        int cnt2=0;
+
         card c;
         //τσεκαρω τον random αριθμό
         
@@ -90,7 +89,7 @@ public final class CardsDealer extends Human implements HeartsDealer {
         }
         a[cnt2]=x;
         //το δίνω
-            cnt2++;
+            this.cnt2++;
             c=this.d.array[i][j];
             //System.out.println(c.card);
             return c;
@@ -99,16 +98,19 @@ public final class CardsDealer extends Human implements HeartsDealer {
     @Override
     public void dealToPlayers(CardsPlayer p1, CardsPlayer p2) {
         card c;
-        for(int i=0;i<5;i++){
-            c=dealRandomCard();
-            p1.hand[i]=c;
+        
+        showShuffled();
+        
+        for(int k=0;k<5;k++){
+            c=d.array[0][k];
+            p1.hand[k]=c;
+            }
+        for(int k=0;k<5;k++){
+            c=d.array[0][k+5];
+            p2.hand[k]=c;         
         }
-
-        for(int i=0;i<5;i++){
-            c=dealRandomCard();
-            p2.hand[i]=c;
-        }    
-    }
+        this.cnt2=0;
+     }
 
     @Override
     public void decideWinner(CardsPlayer p1, CardsPlayer p2) {
@@ -215,5 +217,17 @@ public final class CardsDealer extends Human implements HeartsDealer {
     @Override
     public void setAge(String i) {
         Age=i;
+    }
+
+    private void showShuffled() {
+        this.d.shuffleDeck();
+        System.out.println("I Shuffled th Deck, and I'm ready to Deliver ;) )");
+        for(int i=0;i<4;i++){
+            for(int j=0;j<13;j++){
+                System.out.print(this.d.array[i][j].card+" | ");
+            }
+            System.out.println();
+        }
+        
     }
 }

@@ -1,4 +1,5 @@
 package javaapplication1;
+import java.util.Random;
 import javaapplication1.card;
 /**
  *
@@ -6,7 +7,7 @@ import javaapplication1.card;
  */
 public final class deck{
     card[][] array;
-    int arrayI[],i,j;
+    int arrayI[],i,j,x;
     public deck(){
     Construct();
     }
@@ -32,6 +33,21 @@ public final class deck{
                 }  
             }
         }
+    }
+    public void shuffleDeck(){
+        int N = array.length;
+        card temp;
+        for (int i = 0; i < 4; i++) 
+            { 
+        for (int j = 0; j < 13; j++) 
+            {
+                int r = i + (int) (Math.random() * (4-i));
+                int t= j+ (int) (Math.random()* (13-j));
+                temp = array[r][t]; 
+                array[r][t] = array[i][j]; 
+                array[i][j] = temp; 
+            }
+         }
     }
 }
 
